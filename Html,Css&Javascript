@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Temperature Converter</title>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #000;
+      color: #fff;
+    }
+
+    .output {
+      font-size: 2em;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Temperature Converter</h1>
+
+  <select id="input-unit">
+    <option value="celsius">Celsius</option>
+    <option value="fahrenheit">Fahrenheit</option>
+    <option value="kelvin">Kelvin</option>
+  </select>
+
+  <input type="number" id="input-temperature" placeholder="Enter temperature">
+
+  <select id="output-unit">
+    <option value="celsius">Celsius</option>
+    <option value="fahrenheit">Fahrenheit</option>
+    <option value="kelvin">Kelvin</option>
+  </select>
+
+  <button type="button" id="convert-button">Convert</button>
+
+  <div class="output">
+    <span id="output-temperature"></span>
+  </div>
+
+  <script>
+    const inputUnit = document.querySelector("#input-unit");
+    const inputTemperature = document.querySelector("#input-temperature");
+    const outputUnit = document.querySelector("#output-unit");
+    const outputTemperature = document.querySelector("#output-temperature");
+    const convertButton = document.querySelector("#convert-button");
+
+    convertButton.addEventListener("click", () => {
+      const inputValue = Number(inputTemperature.value);
+      const inputUnitValue = inputUnit.value;
+      const outputUnitValue = outputUnit.value;
+
+      let convertedTemperature;
+
+      switch (inputUnitValue) {
+        case "celsius":
+          if (outputUnitValue === "fahrenheit") {
+            convertedTemperature = (inputValue * 9) / 5 + 32;
+          } else if (outputUnitValue === "kelvin") {
+            convertedTemperature = inputValue + 273.15;
+          } else {
+            convertedTemperature = inputValue;
+          }
+          break;
+
+        case "fahrenheit":
+          if (outputUnitValue === "celsius") {
+            convertedTemperature = (inputValue - 32) * 5 / 9;
+          } else if (outputUnitValue === "kelvin") {
+            convertedTemperature = (inputValue - 32) * 5 / 9 + 273.15;
+          } else {
+            convertedTemperature = inputValue;
+          }
+          break;
+
+        case "kelvin":
+          if (outputUnitValue === "celsius") {
+            convertedTemperature = inputValue - 273.15;
+          } else if (outputUnitValue === "fahrenheit") {
+            convertedTemperature = (inputValue - 273.15) * 9 / 5 + 32;
+          } else {
+            convertedTemperature = inputValue;
+          }
+          break;
+      }
+
+      outputTemperature.textContent = convertedTemperature;
+    });
+  </script>
+</body>
+</html>
